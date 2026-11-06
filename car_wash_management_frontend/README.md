@@ -18,6 +18,16 @@ A responsive frontend starter for managing a car wash business.
 
 For a better development workflow, open the folder in VS Code and use the **Live Server** extension.
 
+## Run with Docker
+From the repository root, build and start the frontend:
+
+```sh
+docker build -t car-wash-frontend .
+docker run --rm -p 8080:80 car-wash-frontend
+```
+
+Then open `http://localhost:8080`.
+
 ## Project structure
 ```text
 car_wash_management_frontend/
