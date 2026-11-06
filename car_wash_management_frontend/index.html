@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShineWash | Car Wash Management</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-icon">✦</span><span>ShineWash</span></div>
+    <div class="side-label">WORKSPACE</div>
+    <button class="nav-link active" data-page="dashboard">▦ <span>Dashboard</span></button>
+    <button class="nav-link" data-page="bookings">▣ <span>Bookings</span></button>
+    <button class="nav-link" data-page="customers">♙ <span>Customers</span></button>
+    <button class="nav-link" data-page="services">✧ <span>Services</span></button>
+    <button class="nav-link" data-page="payments">＄ <span>Payments</span></button>
+    <div class="sidebar-bottom"><div class="avatar">JW</div><div><b>Administrator</b><small>Manager account</small></div></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">CAR WASH MANAGEMENT</div><h1 id="page-title">Dashboard</h1></div>
+      <div class="top-actions"><span class="today" id="today"></span><button class="primary" id="top-add">＋ New booking</button></div>
+    </header>
+
+    <section id="dashboard-page" class="page">
+      <div class="welcome"><div><h2>Welcome back 👋</h2><p>Here is what is happening at your car wash today.</p></div><span class="live-pill">● System overview</span></div>
+      <div class="stats">
+        <article class="stat-card"><div class="stat-top"><span>Total bookings</span><span class="stat-icon blue">▣</span></div><strong id="stat-bookings">0</strong><small class="muted">All recorded bookings</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Today's bookings</span><span class="stat-icon green">◷</span></div><strong id="stat-today">0</strong><small class="muted">Scheduled for today</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Registered customers</span><span class="stat-icon purple">♙</span></div><strong id="stat-customers">0</strong><small class="muted">Customer records</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Revenue collected</span><span class="stat-icon orange">＄</span></div><strong id="stat-revenue">RWF 0</strong><small class="muted">From paid bookings</small></article>
+      </div>
+      <div class="content-grid">
+        <section class="panel"><div class="panel-heading"><div><h3>Recent bookings</h3><p>Latest customer appointments</p></div><button class="text-btn" data-goto="bookings">View all →</button></div><div class="table-wrap"><table><thead><tr><th>Customer</th><th>Vehicle</th><th>Service</th><th>Date</th><th>Status</th></tr></thead><tbody id="recent-bookings"></tbody></table></div></section>
+        <section class="panel quick-panel"><div class="panel-heading"><div><h3>Quick actions</h3><p>Manage your daily work</p></div></div><button class="quick-action" data-open-booking><span class="quick-icon">＋</span><span><b>Create booking</b><small>Schedule a car wash</small></span><span>→</span></button><button class="quick-action" data-goto="customers"><span class="quick-icon">♙</span><span><b>View customers</b><small>Manage customer details</small></span><span>→</span></button><button class="quick-action" data-goto="services"><span class="quick-icon">✧</span><span><b>Manage services</b><small>Review available packages</small></span><span>→</span></button></section>
+      </div>
+    </section>
+
+    <section id="bookings-page" class="page hidden">
+      <div class="page-toolbar"><div><h2>Bookings</h2><p>Schedule and track car wash appointments.</p></div><button class="primary" data-open-booking>＋ Add booking</button></div>
+      <div class="panel"><div class="filter-row"><input id="booking-search" placeholder="Search customer, plate or service..."><select id="status-filter"><option value="">All statuses</option><option>Pending</option><option>In progress</option><option>Completed</option><option>Cancelled</option></select></div><div class="table-wrap"><table><thead><tr><th>Customer</th><th>Vehicle / Plate</th><th>Service</th><th>Date & time</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody id="booking-rows"></tbody></table></div></div>
+    </section>
+
+    <section id="customers-page" class="page hidden">
+      <div class="page-toolbar"><div><h2>Customers</h2><p>Keep customer contact and vehicle information.</p></div><button class="primary" id="add-customer">＋ Add customer</button></div>
+      <div class="panel"><div class="filter-row"><input id="customer-search" placeholder="Search customers..."></div><div class="table-wrap"><table><thead><tr><th>Customer name</th><th>Phone</th><th>Vehicle</th><th>Plate number</th></tr></thead><tbody id="customer-rows"></tbody></table></div></div>
+    </section>
+
+    <section id="services-page" class="page hidden">
+      <div class="page-toolbar"><div><h2>Services</h2><p>Car wash packages and their prices.</p></div><button class="primary" id="add-service">＋ Add service</button></div>
+      <div class="service-grid" id="service-grid"></div>
+    </section>
+
+    <section id="payments-page" class="page hidden">
+      <div class="page-toolbar"><div><h2>Payments</h2><p>Review payments recorded for bookings.</p></div></div>
+      <div class="panel"><div class="table-wrap"><table><thead><tr><th>Customer</th><th>Booking service</th><th>Date</th><th>Amount</th><th>Payment status</th></tr></thead><tbody id="payment-rows"></tbody></table></div></div>
+    </section>
+  </main>
+
+  <dialog id="booking-dialog">
+    <form id="booking-form" method="dialog">
+      <div class="dialog-head"><div><h2>New booking</h2><p>Enter the customer's appointment details.</p></div><button type="button" class="close" data-close>×</button></div>
+      <label>Customer name<input name="customer" required placeholder="e.g. Jean Wilson"></label>
+      <div class="form-row"><label>Phone number<input name="phone" required placeholder="07XXXXXXXX"></label><label>Vehicle<input name="vehicle" required placeholder="Toyota RAV4"></label></div>
+      <div class="form-row"><label>Plate number<input name="plate" required placeholder="RAA 123 A"></label><label>Service<select name="service" id="service-select"></select></label></div>
+      <div class="form-row"><label>Date<input type="date" name="date" id="booking-date" required></label><label>Time<input type="time" name="time" required></label></div>
+      <label>Payment status<select name="payment"><option>Unpaid</option><option>Paid</option></select></label>
+      <div class="dialog-actions"><button type="button" class="secondary" data-close>Cancel</button><button class="primary" type="submit">Save booking</button></div>
+    </form>
+  </dialog>
+  <script src="app.js"></script>
+</body>
+</html>
